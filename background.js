@@ -5,7 +5,7 @@ const defaultCredentials = {
     },
     '192.168.1.202:81': {
         email: 'libe@libesoft.io',
-        password: 'strongPassword'
+        password: ''
     },
     '192.168.1.202:98': {
         email: 'luis@libe.dev',
