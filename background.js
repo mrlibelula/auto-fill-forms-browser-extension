@@ -1,7 +1,7 @@
 const defaultCredentials = {
     'music.test': {
         email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
-        password: import.meta.env.VITE_DEFAULT_PASSWORD || 'password'
+        password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
     },
     '192.168.1.202:81': {
         email: import.meta.env.VITE_LIBESOFT_EMAIL || 'libe@libesoft.io',
@@ -9,7 +9,7 @@ const defaultCredentials = {
     },
     '192.168.1.202:98': {
         email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
-        password: import.meta.env.VITE_DEFAULT_PASSWORD || 'password'
+        password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
     }
 };
 
