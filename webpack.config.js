@@ -19,7 +19,7 @@ module.exports = {
             patterns: [
                 { from: "manifest.json", to: "manifest.json" },
                 { from: "popup.html", to: "popup.html" },
-                { from: "icon.png", to: "icon.png" }
+                { from: "libesoft.io_inv.png", to: "libesoft.io_inv.png" }
             ],
         }),
     ],
