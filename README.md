@@ -91,12 +91,12 @@ Create a `.env` file in the root directory with the following structure:
 
 ```env
 # Default credentials
-DEFAULT_EMAIL=your-default@email.com
-DEFAULT_PASSWORD=your-password
+VITE_DEFAULT_EMAIL=your-default@email.com
+VITE_DEFAULT_PASSWORD=your-password
 
 # LibeSoft credentials
-LIBESOFT_EMAIL=your-libesoft@email.com
-LIBESOFT_PASSWORD=your-libesoft-password
+VITE_LIBESOFT_EMAIL=your-libesoft@email.com
+VITE_LIBESOFT_PASSWORD=your-libesoft-password
 ```
 
 The `.env` file is used to configure:
