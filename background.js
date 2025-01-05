@@ -1,24 +1,26 @@
 const defaultCredentials = {
     'music.test': {
-        email: 'luis@libe.dev',
-        password: 'password'
+        email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
+        password: import.meta.env.VITE_DEFAULT_PASSWORD || 'password'
     },
     '192.168.1.202:81': {
-        email: 'libe@libesoft.io',
-        password: ''
+        email: import.meta.env.VITE_LIBESOFT_EMAIL || 'libe@libesoft.io',
+        password: import.meta.env.VITE_LIBESOFT_PASSWORD || ''
     },
     '192.168.1.202:98': {
-        email: 'luis@libe.dev',
-        password: 'password'
+        email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
+        password: import.meta.env.VITE_DEFAULT_PASSWORD || 'password'
     }
 };
 
+// Store in Chrome storage during installation
 chrome.runtime.onInstalled.addListener(() => {
-    // Store all credentials configurations
-    chrome.storage.sync.set({ 
-        credentialsConfig: defaultCredentials 
-    }, () => {
-        console.log("Credentials configurations set");
-    });
+    chrome.storage.sync.set({ credentialsConfig: defaultCredentials });
+});
+
+// Then retrieve it when needed
+chrome.storage.sync.get(['credentialsConfig'], (result) => {
+    const credentials = result.credentialsConfig;
+    // Use credentials here
 });
   
