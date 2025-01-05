@@ -1,13 +1,20 @@
-chrome.runtime.onInstalled.addListener(() => {
-  const defaultData = {
-    formData: {
-      email: "luis@libe.dev",
-      password: "password"
+const defaultCredentials = {
+    'music.test': {
+        email: 'luis@libe.dev',
+        password: 'password'
+    },
+    '192.168.1.202:81': {
+        email: 'libe@libesoft.io',
+        password: ''
     }
-  }
-  
-  chrome.storage.sync.set(defaultData, () => {
-    console.log("Default values set")
-  })
-})
+};
+
+chrome.runtime.onInstalled.addListener(() => {
+    // Store all credentials configurations
+    chrome.storage.sync.set({ 
+        credentialsConfig: defaultCredentials 
+    }, () => {
+        console.log("Credentials configurations set");
+    });
+});
   

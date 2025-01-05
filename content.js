@@ -1,64 +1,58 @@
-// Use this wrapper for cross-browser compatibility
+// Browser API compatibility
 const browserAPI = typeof browser !== 'undefined' ? browser : chrome;
 
-// Function to fill the form
+function getHostIdentifier(url) {
+    const urlObj = new URL(url);
+    return urlObj.host;
+}
+
 function fillForm(formData) {
-    // Try multiple possible selectors since we can see the actual form structure
-    const emailField = document.querySelector('input[type="email"], input#email, [name="email"]')
-    const passwordField = document.querySelector('input[type="password"], input#password, [name="password"]')
+    console.log("Attempting to fill form with:", formData);
+    
+    const emailField = document.querySelector('input[type="email"], input#email, [name="email"]');
+    const passwordField = document.querySelector('input[type="password"], input#password, [name="password"]');
 
     if (emailField) {
-        emailField.value = formData.email
-        // Trigger input event to ensure any listeners catch the change
-        emailField.dispatchEvent(new Event('input', { bubbles: true }))
-    } else {
-        console.log("Email field not found")
+        emailField.value = formData.email;
+        emailField.dispatchEvent(new Event('input', { bubbles: true }));
     }
     
     if (passwordField) {
-        passwordField.value = formData.password
-        // Trigger input event to ensure any listeners catch the change
-        passwordField.dispatchEvent(new Event('input', { bubbles: true }))
-    } else {
-        console.log("Password field not found")
+        passwordField.value = formData.password;
+        passwordField.dispatchEvent(new Event('input', { bubbles: true }));
     }
 }
 
-// Try to fill form immediately
-browserAPI.storage.sync.get('formData', (data) => {
-    if (data.formData) {
-        fillForm(data.formData)
-    }
-})
+// Get correct credentials based on URL
+function getCredentials() {
+    const hostId = getHostIdentifier(window.location.href);
+    chrome.storage.sync.get('credentialsConfig', (data) => {
+        if (data.credentialsConfig && data.credentialsConfig[hostId]) {
+            fillForm(data.credentialsConfig[hostId]);
+        }
+    });
+}
 
-// Set up observer to watch for dynamically loaded form
+// Try to fill form immediately
+getCredentials();
+
+// Set up observer for dynamic content
 const observer = new MutationObserver((mutations, obs) => {
-    const emailField = document.querySelector('input[type="email"], input#email, [name="email"]')
-    const passwordField = document.querySelector('input[type="password"], input#password, [name="password"]')
+    const emailField = document.querySelector('input[type="email"], input#email, [name="email"]');
+    const passwordField = document.querySelector('input[type="password"], input#password, [name="password"]');
     
     if (emailField && passwordField) {
-        browserAPI.storage.sync.get('formData', (data) => {
-            if (data.formData) {
-                fillForm(data.formData)
-                obs.disconnect() // Stop observing once we've filled the form
-            }
-        })
+        getCredentials();
+        obs.disconnect();
     }
-})
+});
 
-// Start observing the document with the configured parameters
 observer.observe(document, {
     childList: true,
     subtree: true
-})
+});
 
-// Also try after a short delay as backup
-setTimeout(() => {
-    browserAPI.storage.sync.get('formData', (data) => {
-        if (data.formData) {
-            fillForm(data.formData)
-        }
-    })
-}, 1000)
+// Backup timeout attempt
+setTimeout(getCredentials, 1000);
   
   
