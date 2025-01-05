@@ -29,15 +29,24 @@ This extension works on all Chromium-based browsers:
 git clone https://github.com/mrlibelula/auto-fill-forms-browser-extension.git
 ```
 
-2. Open your browser's extension page:
+2. Install dependencies and build the extension:
+
+```bash
+npm install
+npm run build
+```
+
+This will create a `dist` folder containing the built extension files.
+
+3. Open your browser's extension page:
    - **Chrome**: Navigate to `chrome://extensions/`
    - **Brave**: Navigate to `brave://extensions/`
    - **Edge**: Navigate to `edge://extensions/`
    - **Opera**: Navigate to `opera://extensions/`
 
-3. Enable "Developer mode" (usually a toggle in the top-right corner)
+4. Enable "Developer mode" (usually a toggle in the top-right corner)
 
-4. Click "Load unpacked" and select the extension directory
+5. Click "Load unpacked" and select the `dist` directory from the project folder
 
 ### Installation Verification
 1. After installation, you should see the extension icon in your browser's toolbar
@@ -76,23 +85,55 @@ To modify the URL pattern:
 1. Edit the `matches` array in `manifest.json`
 2. Reload the extension
 
+### Environment Configuration
+
+Create a `.env` file in the root directory with the following structure:
+
+```env
+# Default credentials
+DEFAULT_EMAIL=your-default@email.com
+DEFAULT_PASSWORD=your-password
+
+# LibeSoft credentials
+LIBESOFT_EMAIL=your-libesoft@email.com
+LIBESOFT_PASSWORD=your-libesoft-password
+```
+
+The `.env` file is used to configure:
+- Default login credentials for general form filling
+- Specific credentials for LibeSoft applications
+
+**Note:** Make sure to never commit your actual `.env` file to version control. The repository should only contain `.env.example` with placeholder values.
+
 ## Development
 
 ### Project Structure
 
 ```
 ├── manifest.json
-├── background.js
-├── content.js
-├── popup.html
-└── popup.js
+├── src/
+│   ├── background.js
+│   ├── content.js
+│   ├── popup.html
+│   └── popup.js
+├── dist/           # Built extension files
+└── package.json
 ```
 
 ### Key Files
 - `manifest.json`: Extension configuration
-- `background.js`: Background service worker
-- `content.js`: Form detection and filling logic
-- `popup.html/js`: Settings interface
+- `src/background.js`: Background service worker
+- `src/content.js`: Form detection and filling logic
+- `src/popup.html/js`: Settings interface
+- `dist/`: Contains the built extension files for installation
+
+### Development
+
+To make changes to the extension:
+
+1. Make your modifications in the `src` directory
+2. Run `npm run build` to rebuild the extension
+3. Reload the extension in your browser to see the changes
 
 ## Security Considerations
 
