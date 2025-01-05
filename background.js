@@ -4,10 +4,10 @@ chrome.runtime.onInstalled.addListener(() => {
       email: "luis@libe.dev",
       password: "password"
     }
-  };
+  }
   
   chrome.storage.sync.set(defaultData, () => {
-    console.log("Default values set");
-  });
-});
+    console.log("Default values set")
+  })
+})
   

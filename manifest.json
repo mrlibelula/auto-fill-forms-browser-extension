@@ -4,13 +4,19 @@
     "version": "1.0",
     "description": "Auto-fill forms with pre-defined data.",
     "permissions": ["activeTab", "storage", "scripting"],
-    "host_permissions": ["https://music.test/*"],
+    "host_permissions": [
+        "https://music.test/*",
+        "http://192.168.1.202:98/*"
+    ],
     "background": {
         "service_worker": "background.js"
     },
     "content_scripts": [
         {
-            "matches": ["https://music.test/*"],
+            "matches": [
+                "https://music.test/*",
+                "http://192.168.1.202:98/*"
+            ],
             "js": ["content.js"]
         }
     ],
