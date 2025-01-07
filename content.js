@@ -7,7 +7,6 @@ function getHostIdentifier(url) {
 }
 
 function fillForm(formData) {
-    console.log("Attempting to fill form with:", formData);
     
     const emailField = document.querySelector('input[type="email"], input#email, [name="email"]');
     const passwordField = document.querySelector('input[type="password"], input#password, [name="password"]');
