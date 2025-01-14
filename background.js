@@ -11,7 +11,7 @@ const defaultCredentials = {
         email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
         password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
     },
-    'https://libeflix.test/login': {
+    'libeflix.test/login': {
         email: import.meta.env.VITE_LIBESOFT_EMAIL || 'libe@libesoft.io',
         password: import.meta.env.VITE_LIBESOFT_PASSWORD || ''
     },

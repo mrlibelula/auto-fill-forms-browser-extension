@@ -12,15 +12,15 @@ const config = {
             email: import.meta.env.VITE_LIBESOFT_EMAIL,
             password: import.meta.env.VITE_LIBESOFT_PASSWORD
         },
-        'libeflix.test/login': {
+        'https://libeflix.test/login': {
             email: import.meta.env.VITE_LIBESOFT_EMAIL,
             password: import.meta.env.VITE_LIBESOFT_PASSWORD
         },
-        'music.test:98/login': {
+        'http://music.test:98/login': {
             email: import.meta.env.VITE_DEFAULT_EMAIL,
             password: import.meta.env.VITE_DEFAULT_PASSWORD
         },
-        'libeflix.test:81/login': {
+        'http://libeflix.test:81/login': {
             email: import.meta.env.VITE_LIBESOFT_EMAIL,
             password: import.meta.env.VITE_LIBESOFT_PASSWORD
         }
