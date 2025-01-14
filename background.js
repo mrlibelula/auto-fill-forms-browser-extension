@@ -15,11 +15,11 @@ const defaultCredentials = {
         email: import.meta.env.VITE_LIBESOFT_EMAIL || 'libe@libesoft.io',
         password: import.meta.env.VITE_LIBESOFT_PASSWORD || ''
     },
-    'http://music.test:98/login': {
+    'music.test:98': {
         email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
         password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
     },
-    'http://libeflix.test:81/login': {
+    'libeflix.test:81': {
         email: import.meta.env.VITE_LIBESOFT_EMAIL || 'libe@libesoft.io',
         password: import.meta.env.VITE_LIBESOFT_PASSWORD || ''
     }
