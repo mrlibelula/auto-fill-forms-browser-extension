@@ -10,7 +10,8 @@
         "http://192.168.1.202:81/login",
         "https://libeflix.test/login",
         "http://music.test:98/login",
-        "http://libeflix.test:81/login"
+        "http://libeflix.test:81/login",
+        "https://my-log.test/login"
     ],
     "background": {
         "service_worker": "background.bundle.js"
@@ -23,7 +24,8 @@
                 "http://192.168.1.202:81/*",
                 "https://libeflix.test/*",
                 "http://music.test:98/*",
-                "http://libeflix.test:81/*"
+                "http://libeflix.test:81/*",
+                "https://my-log.test/*"
             ],
             "js": ["content.bundle.js"]
         }
