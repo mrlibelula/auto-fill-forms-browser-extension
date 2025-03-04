@@ -27,6 +27,10 @@ const config = {
         'my-log.test/login': {
             email: import.meta.env.VITE_DEFAULT_EMAIL,
             password: import.meta.env.VITE_DEFAULT_PASSWORD
+        },
+        'the-grid.test/login': {
+            email: import.meta.env.VITE_DEFAULT_EMAIL,
+            password: import.meta.env.VITE_DEFAULT_PASSWORD
         }
     }
 };

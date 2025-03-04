@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Libe.dev AutoFill Forms",
-    "version": "3.2",
+    "version": "3.3",
     "description": "Auto-fill forms with pre-defined data.",
     "permissions": ["activeTab", "storage", "scripting"],
     "host_permissions": [
@@ -11,7 +11,8 @@
         "https://libeflix.test/login",
         "http://music.test:98/login",
         "http://libeflix.test:81/login",
-        "https://my-log.test/login"
+        "https://my-log.test/login",
+        "https://the-grid.test/login"
     ],
     "background": {
         "service_worker": "background.bundle.js"
@@ -25,7 +26,8 @@
                 "https://libeflix.test/*",
                 "http://music.test:98/*",
                 "http://libeflix.test:81/*",
-                "https://my-log.test/*"
+                "https://my-log.test/*",
+                "https://the-grid.test/*"
             ],
             "js": ["content.bundle.js"]
         }
