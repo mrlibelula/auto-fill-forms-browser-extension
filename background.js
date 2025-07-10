@@ -27,7 +27,11 @@ const defaultCredentials = {
         email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
         password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
     },
-    'the-grid.test': {
+    'libeflix2.test': {
+        email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
+        password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
+    },
+    'my-portfolio.test': {
         email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
         password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
     }
