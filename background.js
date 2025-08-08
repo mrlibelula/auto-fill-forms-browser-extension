@@ -34,6 +34,10 @@ const defaultCredentials = {
     'my-portfolio.test': {
         email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
         password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
+    },
+    'log.test': {
+        email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
+        password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
     }
 };
 

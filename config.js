@@ -35,6 +35,10 @@ const config = {
         'my-portfolio.test/login': {
             email: import.meta.env.VITE_DEFAULT_EMAIL,
             password: import.meta.env.VITE_DEFAULT_PASSWORD
+        },
+        'log.test/login': {
+            email: import.meta.env.VITE_DEFAULT_EMAIL,
+            password: import.meta.env.VITE_DEFAULT_PASSWORD
         }
     }
 };
