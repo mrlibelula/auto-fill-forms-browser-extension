@@ -39,6 +39,10 @@ const config = {
         'log.test/login': {
             email: import.meta.env.VITE_DEFAULT_EMAIL,
             password: import.meta.env.VITE_DEFAULT_PASSWORD
+        },
+        'ffmpeg.test/login': {
+            email: import.meta.env.VITE_DEFAULT_EMAIL,
+            password: import.meta.env.VITE_DEFAULT_PASSWORD
         }
     }
 };
