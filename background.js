@@ -42,6 +42,14 @@ const defaultCredentials = {
     'ffmpeg.test': {
         email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
         password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
+    },
+    'ssl.test': {
+        email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
+        password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
+    },
+    'reform.test': {
+        email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
+        password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
     }
 };
 
