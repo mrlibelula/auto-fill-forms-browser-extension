@@ -50,6 +50,14 @@ const defaultCredentials = {
     'reform.test': {
         email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
         password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
+    },
+    '192.168.1.202:1001': {
+        email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
+        password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
+    },
+    'ffmpeg.test:1001': {
+        email: import.meta.env.VITE_DEFAULT_EMAIL || 'luis@libe.dev',
+        password: import.meta.env.VITE_DEFAULT_PASSWORD || ''
     }
 };
 

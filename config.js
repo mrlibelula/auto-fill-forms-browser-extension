@@ -51,6 +51,14 @@ const config = {
         'reform.test/login': {
             email: import.meta.env.VITE_DEFAULT_EMAIL,
             password: import.meta.env.VITE_DEFAULT_PASSWORD
+        },
+        '192.168.1.202:1001': {
+            email: import.meta.env.VITE_DEFAULT_EMAIL,
+            password: import.meta.env.VITE_DEFAULT_PASSWORD
+        },
+        'ffmpeg.test:1001': {
+            email: import.meta.env.VITE_DEFAULT_EMAIL,
+            password: import.meta.env.VITE_DEFAULT_PASSWORD
         }
     }
 };
