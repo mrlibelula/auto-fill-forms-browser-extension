@@ -1,93 +1,50 @@
-# Libe.dev AutoFill Forms Extension
+# Libe.dev AutoFill Forms
 
-A browser extension that automatically fills login forms with predefined credentials. Perfect for development and testing environments.
+A lightweight Chromium extension (Manifest V3) that automatically fills login forms with per-site credentials. Built for local development and testing environments where you log into the same `.test` hosts over and over.
 
 ## Features
 
-- 🚀 Automatic form detection and filling
-- 🔒 Secure credential storage using browser's built-in storage API
-- ⚡ Works with dynamically loaded forms
-- 🎯 Configurable through an easy-to-use popup interface
-- 🛠️ Perfect for development and testing environments
+- Automatic detection and filling of `email` / `password` fields
+- Per-host credentials — different logins for different sites
+- Works with dynamically rendered forms via a `MutationObserver`
+- Credentials sourced from environment variables at build time
+- Zero runtime dependencies — plain JS bundled with webpack
+- Popup UI for saving credentials on the fly
 
 ## Browser Compatibility
 
-This extension works on all Chromium-based browsers:
-- ✅ Google Chrome
-- ✅ Microsoft Edge
-- ✅ Brave
-- ✅ Opera
-- ✅ Vivaldi
+Works on all Chromium-based browsers:
 
-## Installation Instructions
+- Google Chrome
+- Microsoft Edge
+- Brave
+- Opera
+- Vivaldi
 
-### Local Development Installation
+## How It Works
 
-1. Clone this repository:
+1. `background.js` seeds a per-host credential map into `chrome.storage.sync` on install.
+2. `content.js` runs on matched pages, resolves the current host, looks up its credentials, and fills the `email` and `password` inputs.
+3. A `MutationObserver` (plus a fallback timeout) handles forms that load asynchronously.
+4. `popup.html` / `popup.js` provide a small settings form to update stored credentials.
 
-```bash
-git clone https://github.com/mrlibelula/auto-fill-forms-browser-extension.git
-```
+Credential values come from a `.env` file at build time (via `dotenv-webpack`), so no secrets are hard-coded in the shipped bundle.
 
-2. Install dependencies and build the extension:
+## Getting Started
+
+### 1. Install dependencies
 
 ```bash
 npm install
-npm run build
 ```
 
-This will create a `dist` folder containing the built extension files.
+### 2. Configure credentials
 
-3. Open your browser's extension page:
-   - **Chrome**: Navigate to `chrome://extensions/`
-   - **Brave**: Navigate to `brave://extensions/`
-   - **Edge**: Navigate to `edge://extensions/`
-   - **Opera**: Navigate to `opera://extensions/`
+Copy the example environment file and fill in your values:
 
-4. Enable "Developer mode" (usually a toggle in the top-right corner)
-
-5. Click "Load unpacked" and select the `dist` directory from the project folder
-
-### Installation Verification
-1. After installation, you should see the extension icon in your browser's toolbar
-2. Default credentials will be set to:
-   - Email: luis@libe.dev
-   - Password: password
-
-## Usage
-
-### Basic Usage
-1. Navigate to your login page (default configured for https://music.test/*)
-2. The form should auto-fill with your predefined credentials
-
-### Changing Credentials
-1. Click the extension icon in your browser toolbar
-2. Enter new credentials in the popup form
-3. Click "Save"
-4. New credentials will be used for future auto-fills
-
-## Configuration
-
-### Manifest Permissions
-The extension requires the following permissions:
-- `activeTab`: To interact with the current tab
-- `storage`: To save your credentials
-- `scripting`: To inject the auto-fill script
-
-### URL Patterns
-By default, the extension works on:
-
+```bash
+cp .env.example .env
 ```
-https://music.test/
-```
-
-To modify the URL pattern:
-1. Edit the `matches` array in `manifest.json`
-2. Reload the extension
-
-### Environment Configuration
-
-Create a `.env` file in the root directory with the following structure:
 
 ```env
 # Default credentials
@@ -99,87 +56,90 @@ VITE_LIBESOFT_EMAIL=your-libesoft@email.com
 VITE_LIBESOFT_PASSWORD=your-libesoft-password
 ```
 
-The `.env` file is used to configure:
-- Default login credentials for general form filling
-- Specific credentials for LibeSoft applications
+> Never commit your real `.env`. Only `.env.example` (with placeholders) belongs in version control.
 
-**Note:** Make sure to never commit your actual `.env` file to version control. The repository should only contain `.env.example` with placeholder values.
+### 3. Build the extension
+
+```bash
+npm run build      # production build into dist/
+npm run dev        # development build with watch mode
+```
+
+The build outputs `background.bundle.js`, `content.bundle.js`, and `popup.bundle.js` into a `dist/` folder, along with the copied `manifest.json`, `popup.html`, and icon.
+
+### 4. Load it in your browser
+
+1. Open your browser's extension page:
+   - Chrome: `chrome://extensions/`
+   - Edge: `edge://extensions/`
+   - Brave: `brave://extensions/`
+   - Opera: `opera://extensions/`
+2. Enable **Developer mode** (top-right toggle).
+3. Click **Load unpacked** and select the `dist/` directory.
+4. The extension icon appears in your toolbar.
+
+## Configuration
+
+### Target sites
+
+The list of sites the extension runs on is defined in two places in `manifest.json`:
+
+- `host_permissions` — grants access to the listed hosts
+- `content_scripts.matches` — controls where `content.js` is injected
+
+Per-host credential mappings live in `background.js` (seeded into storage) and `config.js`. To add a new site:
+
+1. Add the URL pattern to `host_permissions` and `matches` in `manifest.json`.
+2. Add a matching host entry to the credentials map in `background.js`.
+3. Rebuild (`npm run build`) and reload the extension.
+
+### Permissions
+
+| Permission  | Purpose                                |
+| ----------- | -------------------------------------- |
+| `activeTab` | Interact with the current tab          |
+| `storage`   | Persist credentials via `storage.sync` |
+| `scripting` | Inject the auto-fill logic             |
+
+## Project Structure
+
+```
+├── manifest.json        # MV3 extension manifest
+├── background.js        # Service worker — seeds credentials into storage
+├── content.js           # Detects and fills login forms
+├── popup.html           # Settings UI markup
+├── popup.js             # Settings UI logic
+├── config.js            # Host → credential mapping
+├── webpack.config.js    # Bundling + env injection + asset copy
+├── package.json
+├── .env.example         # Environment variable template
+└── dist/                # Build output (load this in the browser)
+```
 
 ## Development
 
-### Project Structure
+1. Make changes in the root source files (`background.js`, `content.js`, `popup.js`, etc.).
+2. Run `npm run dev` to rebuild on save, or `npm run build` for a one-off production build.
+3. Reload the extension from your browser's extensions page to pick up the changes.
 
-```
-├── manifest.json
-├── src/
-│   ├── background.js
-│   ├── content.js
-│   ├── popup.html
-│   └── popup.js
-├── dist/           # Built extension files
-└── package.json
-```
+## Security Notes
 
-### Key Files
-- `manifest.json`: Extension configuration
-- `src/background.js`: Background service worker
-- `src/content.js`: Form detection and filling logic
-- `src/popup.html/js`: Settings interface
-- `dist/`: Contains the built extension files for installation
-
-### Development
-
-To make changes to the extension:
-
-1. Make your modifications in the `src` directory
-2. Run `npm run build` to rebuild the extension
-3. Reload the extension in your browser to see the changes
-
-## Security Considerations
-
-⚠️ **Important Notes:**
-- This extension is intended for development/testing environments
-- Credentials are stored in the browser's sync storage
-- Do not use with production credentials
-- Only use on trusted development domains
+- Intended strictly for **development and testing** environments.
+- Credentials are stored in the browser's `storage.sync`.
+- Do not use with production or sensitive credentials.
+- Only enable it on trusted local domains.
 
 ## Troubleshooting
 
-If the extension isn't working:
-
-1. Verify Installation
-   - Check if the extension is enabled in your browser
-   - Look for any console errors
-
-2. Check Permissions
-   - Ensure the extension has required permissions
-   - Domain should match the pattern in manifest.json
-
-3. Form Detection Issues
-   - Verify form field IDs/selectors match your page
-   - Check if form loads dynamically
-
-4. Storage Issues
-   - Check stored data via extension popup
-   - Try resetting extension data
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- **Form not filling** — confirm the site matches a pattern in `manifest.json` and that the form uses standard `email` / `password` input selectors.
+- **Wrong credentials** — check the host key in `background.js` matches the site's exact `host` (including port).
+- **Nothing loads** — verify the extension is enabled and check the service worker / page console for errors.
+- **Dynamic forms** — the `MutationObserver` and 1s fallback should cover most cases; increase the timeout in `content.js` if a form renders very late.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support, please open an issue in the GitHub repository.
+Released under the MIT License.
 
 ---
 
 Made with 🧠 by [Libe.dev](https://libe.dev)
-
